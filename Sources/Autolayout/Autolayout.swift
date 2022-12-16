@@ -20,7 +20,7 @@ public class Autolayout {
     }
     
     class StoredConstraint: Equatable, Hashable, CustomStringConvertible {
-        typealias Handler = () -> Void
+        typealias Handler = (Rect) -> Void
         
         let destinationView: BaseElement
         let constraint: Constraint
@@ -180,7 +180,7 @@ extension BaseElement {
     
     // MARK: Relative
     
-    private func setupConstraint(_ constraint: Autolayout.Constraint, for view: BaseElement, _ handler: @escaping () -> Void) {
+    private func setupConstraint(_ constraint: Autolayout.Constraint, for view: BaseElement, _ handler: @escaping (Rect) -> Void) {
         let resizeObserver = view.resizeObserver ?? ResizeObserver().observe(view)
         
         if let member = view.storedConstraints.first(where: { $0.destinationView == view && $0.constraint == constraint }) {
@@ -193,20 +193,24 @@ extension BaseElement {
         
 //        print("#\(view.properties._id) set handlersForView #\(self.properties._id)")
         
-        resizeObserver.setObserver(for: self) { [weak self] entries, observer in
+        resizeObserver.setObserver(for: self) { entries, observer in
+            let rect: Rect = entries.first?.contentRect ?? .zero
+            entries.forEach { entrie in
+                print("entrie(#\(entrie.target.id.string ?? "nnn")) entrie.contentRect: \(entrie.contentRect)")
+            }
 //            print("#\(self?.properties._id ?? "nnn") #\(view.properties._id).resizeObserver fired, storedConstraints.count: \(view.storedConstraints.count), values: \(view.storedConstraints.map { $0.description })")
             view.storedConstraints.forEach {
 //                print("#\(self?.properties._id ?? "nnn") calling #\($0.destinationView.properties._id) handler for \($0.constraint)")
-                $0.handlers.forEach { $0() }
+                $0.handlers.forEach { $0(rect) }
             }
         }
         view.resizeObserver = resizeObserver
         if isInDOM {
-            handler()
+            handler(view.boundingClientRect)
         } else {
-            onDidAddToDOM(handler)
+            onDidAddToDOM { handler(view.boundingClientRect) }
         }
-        view.onDidAddToDOM(handler)
+        view.onDidAddToDOM { handler(view.boundingClientRect) }
     }
     
     // MARK: - Relative
@@ -229,7 +233,7 @@ extension BaseElement {
         ) {
             func _setup(_ value: UnitValue) {
 //                print("_setupSides #\(self.properties._id) -> #\(destinationView.properties._id) \(constraint)")
-                let updateHandler: () -> Void = { [weak self] in
+                let updateHandler: (Rect) -> Void = { [weak self] rect in
                     guard let self = self else { return }
                     let _position = Window.shared.getComputedStyle(self, for: CSS.PropertyType.position.rawValue)
                     guard let p = _position, p != "", p != "static" else {
@@ -254,9 +258,9 @@ extension BaseElement {
 //                        Console.warning("⚠️🎨 \(attribute1.rawValue.capitalized) to \(attribute2.rawValue) automatically fixed position to absolute (#\(self.properties._id).\(attribute1.rawValue) to #\(destinationView.properties._id).\(attribute2.rawValue))")
 //                        #endif
 //                    }
-                    let currentAbsolute = currentAbsolute() ?? 0
-                    let currentOffset = currentOffset() ?? 0
-                    let destinationAbsolute = destinationAbsolute() ?? 0
+                    let currentAbsolute = 0.0//currentAbsolute() ?? 0
+                    let currentOffset = 0.0//currentOffset() ?? 0
+                    let destinationAbsolute = 0.0//destinationAbsolute() ?? 0
                     printedWarning[constraint] = false
                     var diff: Double = 0
                     let newValue: Double
@@ -509,9 +513,9 @@ extension BaseElement {
             switch attribute2 {
             case .width:
                 func setup(_ value: UnitValue) {
-                    let updateHandler: () -> Void = { [weak self] in
+                    let updateHandler: (Rect) -> Void = { [weak self] rect in
 //                        print("height to width called")
-                        self?.width(UnitValue(destinationView.clientWidth * multiplier + value.value, .px))
+                        self?.width(UnitValue(rect.width * multiplier + value.value, .px))
                     }
                     setupConstraint(.widthToWidthOfView, for: destinationView, updateHandler)
                 }
@@ -521,9 +525,9 @@ extension BaseElement {
                 setup(.init(value.wrappedValue.value.doubleValue, value.wrappedValue.unit))
             case .height:
                 func setup(_ value: UnitValue) {
-                    let updateHandler: () -> Void = { [weak self] in
+                    let updateHandler: (Rect) -> Void = { [weak self] rect in
 //                        print("width to height called")
-                        self?.width(UnitValue(destinationView.clientHeight * multiplier + value.value, .px))
+                        self?.width(UnitValue(rect.height * multiplier + value.value, .px))
                     }
                     setupConstraint(.widthToHeightOfView, for: destinationView, updateHandler)
                 }
@@ -538,9 +542,9 @@ extension BaseElement {
             switch attribute2 {
             case .width:
                 func setup(_ value: UnitValue) {
-                    let updateHandler: () -> Void = { [weak self] in
+                    let updateHandler: (Rect) -> Void = { [weak self] rect in
 //                        print("height to width called")
-                        self?.height(UnitValue(destinationView.clientWidth * multiplier + value.value, .px))
+                        self?.height(UnitValue(rect.width * multiplier + value.value, .px))
                     }
                     setupConstraint(.heightToWidthOfView, for: destinationView, updateHandler)
                 }
@@ -550,9 +554,9 @@ extension BaseElement {
                 setup(.init(value.wrappedValue.value.doubleValue, value.wrappedValue.unit))
             case .height:
                 func setup(_ value: UnitValue) {
-                    let updateHandler: () -> Void = { [weak self] in
+                    let updateHandler: (Rect) -> Void = { [weak self] rect in
 //                        print("height to height called")
-                        self?.height(UnitValue(destinationView.clientHeight * multiplier + value.value, .px))
+                        self?.height(UnitValue(rect.height * multiplier + value.value, .px))
                     }
                     setupConstraint(.heightToHeightOfView, for: destinationView, updateHandler)
                 }
