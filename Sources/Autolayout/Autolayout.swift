@@ -556,7 +556,9 @@ extension BaseElement {
                 func setup(_ value: UnitValue) {
                     let updateHandler: (Rect) -> Void = { [weak self] rect in
 //                        print("height to height called")
+                        self?.visibility(.hidden)
                         self?.height(UnitValue(rect.height * multiplier + value.value, .px))
+                        self?.visibility(.visible)
                     }
                     setupConstraint(.heightToHeightOfView, for: destinationView, updateHandler)
                 }
@@ -1543,18 +1545,19 @@ extension BaseElement {
         side: Autolayout.ConstraintCXSide = .centerX,
         multiplier: Double = 1
     ) -> Self {
-//        print("centerXInSuperview 1")
-        let setup = { [weak self] in
-//            print("centerXInSuperview 2")
-            guard let self = self else { return }
-//            print("centerXInSuperview 3")
-            guard let superview = self.superview else { return }
-//            print("centerXInSuperview 4")
-            self.centerX(to: side, of: superview, state, multiplier: multiplier)
-        }
-        setup()
-        onDidAddToDOM(setup)
-        return self
+////        print("centerXInSuperview 1")
+//        let setup = { [weak self] in
+////            print("centerXInSuperview 2")
+//            guard let self = self else { return }
+////            print("centerXInSuperview 3")
+//            guard let superview = self.superview else { return }
+////            print("centerXInSuperview 4")
+//            self.centerX(to: side, of: superview, state, multiplier: multiplier)
+//        }
+//        setup()
+//        onDidAddToDOM(setup)
+//        return self
+        left(50.percent).transform(.translateX(-50.percent))
     }
     
     @discardableResult
@@ -1574,14 +1577,27 @@ extension BaseElement {
         side: Autolayout.ConstraintCYSide = .centerY,
         multiplier: Double = 1
     ) -> Self {
-        let setup = { [weak self] in
+//        let setup = { [weak self] in
+//            guard let self = self else { return }
+//            guard let superview = self.superview else { return }
+//            self.centerY(to: side, of: superview, state, multiplier: multiplier)
+//        }
+//        setup()
+//        onDidAddToDOM(setup)
+//        return self
+        let set: (U) -> Void = { [weak self] value in
             guard let self = self else { return }
-            guard let superview = self.superview else { return }
-            self.centerY(to: side, of: superview, state, multiplier: multiplier)
+            if value.value.doubleValue > 0 {
+                self.custom("top", "calc((50% + \(value.value.doubleValue)) * \(multiplier))")
+            } else if value.value.doubleValue < 0 {
+                self.custom("top", "calc((50% - \(value.value.doubleValue)) * \(multiplier))")
+            } else {
+                self.custom("top", "calc(50% * \(multiplier))")
+            }
         }
-        setup()
-        onDidAddToDOM(setup)
-        return self
+        state.listen { set($0) }
+        set(state.wrappedValue)
+        return transform(.translate(-20.percent, -50.percent))
     }
     
     @discardableResult
@@ -1634,28 +1650,22 @@ extension BaseElement {
         dimension: Autolayout.ConstraintDSide = .width,
         multiplier: Double = 1
     ) -> Self {
-        let setup = { [weak self] in
-            guard let self = self else { return }
-            guard let superview = self.superview else { return }
-            self.width(to: dimension, of: superview, state, multiplier: multiplier)
-        }
-        setup()
-        onDidAddToDOM(setup)
-        return self
+        width((multiplier * 100).percent)
     }
     
-    @discardableResult
-    public func widthToSuperview<U: UnitValuable>(
-        _ value: U = 0.px,
-        dimension: Autolayout.ConstraintDSide = .width,
-        multiplier: Double = 1
-    ) -> Self {
-        widthToSuperview(
-            .init(wrappedValue: value),
-            dimension: dimension,
-            multiplier: multiplier
-        )
-    }
+//    @discardableResult
+//    public func widthToHeightOfSuperview<U: UnitValuable>(
+//        _ value: U = 0.px,
+//        multiplier: Double = 1
+//    ) -> Self {
+//        let setup = { [weak self] in
+//            guard let self = self else { return }
+//            guard let superview = self.superview else { return }
+//            self.width(to: .height, of: superview, state, multiplier: multiplier)
+//        }
+//        setup()
+//        onDidAddToDOM(setup)
+//    }
     
     // MARK: - height
     
@@ -1665,26 +1675,27 @@ extension BaseElement {
         dimension: Autolayout.ConstraintDSide = .height,
         multiplier: Double = 1
     ) -> Self {
-        let setup = { [weak self] in
-            guard let self = self else { return }
-            guard let superview = self.superview else { return }
-            self.height(to: dimension, of: superview, state, multiplier: multiplier)
-        }
-        setup()
-        onDidAddToDOM(setup)
-        return self
+//        let setup = { [weak self] in
+//            guard let self = self else { return }
+//            guard let superview = self.superview else { return }
+//            self.height(to: dimension, of: superview, state, multiplier: multiplier)
+//        }
+//        setup()
+//        onDidAddToDOM(setup)
+//        return self
+        height((multiplier * 100).percent)
     }
     
-    @discardableResult
-    public func heightToSuperview<U: UnitValuable>(
-        _ value: U = 0.px,
-        dimension: Autolayout.ConstraintDSide = .height,
-        multiplier: Double = 1
-    ) -> Self {
-        heightToSuperview(
-            .init(wrappedValue: value),
-            dimension: dimension,
-            multiplier: multiplier
-        )
-    }
+//    @discardableResult
+//    public func heightToSuperview<U: UnitValuable>(
+//        _ value: U = 0.px,
+//        dimension: Autolayout.ConstraintDSide = .height,
+//        multiplier: Double = 1
+//    ) -> Self {
+//        heightToSuperview(
+//            .init(wrappedValue: value),
+//            dimension: dimension,
+//            multiplier: multiplier
+//        )
+//    }
 }
