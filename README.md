@@ -122,6 +122,16 @@ Or you can use breakpoints within the classic stylesheet
 
 > Each method also can be used with `@State` value
 
+#### Please note
+
+`top, right, bottom, left, center, width, height` methods relate to `position` property of the element and its parent. 
+
+if you want to set these properties globally to the window then use `.position(.absolute) // or .fixed, .sticky`
+
+if you want to set these properties relative to its parent then use `.position(.relative)` and don't forget that that's parent also should have `.position(.relative)` or the parent of its parent and so on
+
+with `.position(.static)` only `width` and `height` property works 
+
 ### Top
 
 Specifies `top` position to the first parent element with relative position
