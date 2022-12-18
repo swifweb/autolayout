@@ -38,6 +38,10 @@ targets: [
 
 # Usage
 
+```swift
+import Autolayout
+```
+
 Start using it at any view by simply declaring methods listed below.
 
 ## Breakpoints
