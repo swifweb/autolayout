@@ -118,19 +118,55 @@ Or you can use breakpoints within the classic stylesheet
 
 ## Methods
 
-> You can declare multiple same methods but with different breakpoints.
+### Overriding
+
+You can declare different values for the same property but with different breakpoints
+
+```swift
+// will be applied in any case
+.width(600.px)
+
+// will override any other values when screen width is extra-small or small
+.width(200.px, breakpoints: .xs, .s)
+
+// will override any other values when screen width is medium or large
+.width(400.px, breakpoints: .m, .l)
+```
+
+The library will take care of overriding priority.
+
+### Positioning
+
+`top, right, bottom, left, center, width, height` methods relate to `position` property of the element and of its parent 
+
+#### Setting global position
+
+if you want to set these properties globally (to the window boundaries) then use
+```swift
+.position(.absolute) // or .fixed, .sticky
+```
+
+#### Setting relative position
+
+if you want to set these properties relative to its parent then use 
+```swift
+.position(.relative)
+```
+and don't forget that that's parent also should have
+```swift
+.position(.relative)
+```
+or the parent of its parent and so on
+
+#### Potential confusion
+
+Please don't forget that with
+```swift
+.position(.static) // or if position haven't been set at all
+```
+only `width` and `height` property works, other properties just can't work in this case
 
 > Each method also can be used with `@State` value
-
-#### Please note
-
-`top, right, bottom, left, center, width, height` methods relate to `position` property of the element and its parent. 
-
-if you want to set these properties globally to the window then use `.position(.absolute) // or .fixed, .sticky`
-
-if you want to set these properties relative to its parent then use `.position(.relative)` and don't forget that that's parent also should have `.position(.relative)` or the parent of its parent and so on
-
-with `.position(.static)` only `width` and `height` property works 
 
 ### Top
 
