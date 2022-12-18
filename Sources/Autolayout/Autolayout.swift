@@ -10,11 +10,18 @@ import ResizeObserverAPI
 
 let _autolayout = Autolayout()
 
+extension Id {
+    public static var autolayoutStyles: Id { "autolayout_styles" }
+}
+
 public class Autolayout {
-    let stylesheet = Stylesheet().id("autolayout_styles")
+    let stylesheet = Stylesheet().id(.autolayoutStyles)
     var ruleIndexCache: [String: Int] = [:]
     
     fileprivate init () {
+        #if WEBPREVIEW
+        WebApp.shared.stylesheets.append(stylesheet)
+        #endif
         WebApp.shared.document.head.appendChild(stylesheet)
     }
     
