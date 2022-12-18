@@ -23,7 +23,7 @@ Add package to your SwifWeb app's `Package.swift`
 In dependencies section
 ```swift
  dependencies: [
-    .package(url: "https://github.com/swifweb/autolayout", from: "1.0.1")
+    .package(url: "https://github.com/swifweb/autolayout", from: "1.0.2")
 ]
 ```
 In target section
@@ -77,19 +77,19 @@ So you will be able to use them simply like this
 To save your time there are already predefined breakpoints
 
 ```swift
-.extraSmall       // <576px
-.small            // ≥576px and <768px
-.medium           // ≥768px and <992px
-.large            // ≥992px and <1200px
-.extraLarge       // ≥1200px and <1400px
-.extraExtraLarge  // ≥1400px
+.xs or .extraSmall        // <576px
+.s or .small              // ≥576px and <768px
+.m or .medium             // ≥768px and <992px
+.l or .large              // ≥992px and <1200px
+.xl or .extraLarge        // ≥1200px and <1400px
+.xxl or .extraExtraLarge  // ≥1400px
 ```
 
 ## Methods
 
 > You can declare multiple same methods but with different breakpoints.
 
-> Each method also accept `@State` value
+> Each method also can be used with `@State` value
 
 ### Top
 
