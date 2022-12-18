@@ -138,7 +138,7 @@ extension BaseElement {
         } else {
             let cssRule = CSSRule(Class(stringLiteral: className).pointer)
             let mediaRule = MediaRule(breakpoints) { cssRule }
-            let rule = rulesHandler(cssRule)
+            let _ = rulesHandler(cssRule)
             index = _autolayout.stylesheet.addMediaRule(mediaRule)
         }
         if index >= 0 {
