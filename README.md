@@ -23,7 +23,7 @@ Add package to your SwifWeb app's `Package.swift`
 In dependencies section
 ```swift
  dependencies: [
-    .package(url: "https://github.com/swifweb/autolayout", from: "1.0.2")
+    .package(url: "https://github.com/swifweb/autolayout", from: "1.0.3")
 ]
 ```
 In target section
@@ -40,6 +40,18 @@ targets: [
 
 ```swift
 import Autolayout
+
+// amazingly laconic and powerful
+Div()
+    .position(.absolute)
+    .backgroundColor(.brown)
+    .widthToParent()
+    .width(100.px, breakpoints: .xs, .s)
+    .height(100.px)
+    .top()
+    .edges(h: 0.px)
+    .centerX(breakpoints: .xs, .s)
+    .opacity(0.8, breakpoints: .xs, .s)
 ```
 
 Start using it at any view by simply declaring methods listed below.

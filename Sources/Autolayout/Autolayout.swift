@@ -346,34 +346,35 @@ extension BaseElement {
                 if value.value.doubleValue > 0 {
                     if multiplier == 1 {
                         if percentage == 0 {
-                            return rule.custom("top", value.description + important)
+                            rule.custom("--top", value.description + important)
                         } else {
-                            return rule.custom("top", "calc(\(percentage)% + \(value.description))" + important)
+                            rule.custom("--top", "calc(\(percentage)% + \(value.description))" + important)
                         }
                     } else {
                         if percentage == 0 {
-                            return rule.custom("top", "calc(\(value.description) * \(multiplier))" + important)
+                            rule.custom("--top", "calc(\(value.description) * \(multiplier))" + important)
                         } else {
-                            return rule.custom("top", "calc((\(percentage)% + \(value.description)) * \(multiplier))" + important)
+                            rule.custom("--top", "calc((\(percentage)% + \(value.description)) * \(multiplier))" + important)
                         }
                     }
                 } else if value.value.doubleValue < 0 {
                     if multiplier == 1 {
                         if percentage == 0 {
-                            return rule.custom("top", value.description + important)
+                            rule.custom("--top", value.description + important)
                         } else {
-                            return rule.custom("top", "calc(\(percentage)% - \(UnitValue(-value.value.doubleValue, value.unit).description))" + important)
+                            rule.custom("--top", "calc(\(percentage)% - \(UnitValue(-value.value.doubleValue, value.unit).description))" + important)
                         }
                     } else {
                         if percentage == 0 {
-                            return rule.custom("top", "calc(\(value.description) * \(multiplier))" + important)
+                            rule.custom("--top", "calc(\(value.description) * \(multiplier))" + important)
                         } else {
-                            return rule.custom("top", "calc((\(percentage)% - \(UnitValue(-value.value.doubleValue, value.unit).description)) * \(multiplier))" + important)
+                            rule.custom("--top", "calc((\(percentage)% - \(UnitValue(-value.value.doubleValue, value.unit).description)) * \(multiplier))" + important)
                         }
                     }
                 } else {
-                    return rule.custom("top", "0px" + important)
+                    rule.custom("--top", "0px" + important)
                 }
+                return rule.custom("top", "var(--top, 0)" + important)
             }
         }
         perform(state.wrappedValue, side.wrappedValue, multiplier.wrappedValue)
@@ -446,34 +447,35 @@ extension BaseElement {
                 if value.value.doubleValue > 0 {
                     if multiplier == 1 {
                         if percentage == 0 {
-                            return rule.custom("left", value.description + important)
+                            rule.custom("--left", value.description + important)
                         } else {
-                            return rule.custom("left", "calc(\(percentage)% + \(value.description))" + important)
+                            rule.custom("--left", "calc(\(percentage)% + \(value.description))" + important)
                         }
                     } else {
                         if percentage == 0 {
-                            return rule.custom("left", "calc(\(value.description) * \(multiplier))" + important)
+                            rule.custom("--left", "calc(\(value.description) * \(multiplier))" + important)
                         } else {
-                            return rule.custom("left", "calc((\(percentage)% + \(value.description)) * \(multiplier))" + important)
+                            rule.custom("--left", "calc((\(percentage)% + \(value.description)) * \(multiplier))" + important)
                         }
                     }
                 } else if value.value.doubleValue < 0 {
                     if multiplier == 1 {
                         if percentage == 0 {
-                            return rule.custom("left", value.description + important)
+                            rule.custom("--left", value.description + important)
                         } else {
-                            return rule.custom("left", "calc(\(percentage)% - \(UnitValue(-value.value.doubleValue, value.unit).description))" + important)
+                            rule.custom("--left", "calc(\(percentage)% - \(UnitValue(-value.value.doubleValue, value.unit).description))" + important)
                         }
                     } else {
                         if percentage == 0 {
-                            return rule.custom("left", "calc(\(value.description) * \(multiplier))" + important)
+                            rule.custom("--left", "calc(\(value.description) * \(multiplier))" + important)
                         } else {
-                            return rule.custom("left", "calc((\(percentage)% - \(UnitValue(-value.value.doubleValue, value.unit).description)) * \(multiplier))" + important)
+                            rule.custom("--left", "calc((\(percentage)% - \(UnitValue(-value.value.doubleValue, value.unit).description)) * \(multiplier))" + important)
                         }
                     }
                 } else {
-                    return rule.custom("left", "0px" + important)
+                    rule.custom("--left", "0px" + important)
                 }
+                return rule.custom("left", "var(--left, 0)" + important)
             }
         }
         perform(state.wrappedValue, side.wrappedValue, multiplier.wrappedValue)
@@ -546,34 +548,35 @@ extension BaseElement {
                 if value.value.doubleValue > 0 {
                     if multiplier == 1 {
                         if percentage == 0 {
-                            return rule.custom("right", value.description + important)
+                            rule.custom("--right", value.description + important)
                         } else {
-                            return rule.custom("right", "calc(\(percentage)% + \(value.description))" + important)
+                            rule.custom("--right", "calc(\(percentage)% + \(value.description))" + important)
                         }
                     } else {
                         if percentage == 0 {
-                            return rule.custom("right", "calc(\(value.description) * \(multiplier))" + important)
+                            rule.custom("--right", "calc(\(value.description) * \(multiplier))" + important)
                         } else {
-                            return rule.custom("right", "calc((\(percentage)% + \(value.description)) * \(multiplier))" + important)
+                            rule.custom("--right", "calc((\(percentage)% + \(value.description)) * \(multiplier))" + important)
                         }
                     }
                 } else if value.value.doubleValue < 0 {
                     if multiplier == 1 {
                         if percentage == 0 {
-                            return rule.custom("right", value.description + important)
+                            rule.custom("--right", value.description + important)
                         } else {
-                            return rule.custom("right", "calc(\(percentage)% - \(UnitValue(-value.value.doubleValue, value.unit).description))" + important)
+                            rule.custom("--right", "calc(\(percentage)% - \(UnitValue(-value.value.doubleValue, value.unit).description))" + important)
                         }
                     } else {
                         if percentage == 0 {
-                            return rule.custom("right", "calc(\(value.description) * \(multiplier))" + important)
+                            rule.custom("--right", "calc(\(value.description) * \(multiplier))" + important)
                         } else {
-                            return rule.custom("right", "calc((\(percentage)% - \(UnitValue(-value.value.doubleValue, value.unit).description)) * \(multiplier))" + important)
+                            rule.custom("--right", "calc((\(percentage)% - \(UnitValue(-value.value.doubleValue, value.unit).description)) * \(multiplier))" + important)
                         }
                     }
                 } else {
-                    return rule.custom("right", "0px" + important)
+                    rule.custom("--right", "0px" + important)
                 }
+                return rule.custom("right", "var(--right, 0)" + important)
             }
         }
         perform(state.wrappedValue, side.wrappedValue, multiplier.wrappedValue)
@@ -646,34 +649,35 @@ extension BaseElement {
                 if value.value.doubleValue > 0 {
                     if multiplier == 1 {
                         if percentage == 0 {
-                            return rule.custom("bottom", value.description + important)
+                            rule.custom("--bottom", value.description + important)
                         } else {
-                            return rule.custom("bottom", "calc(\(percentage)% + \(value.description))" + important)
+                            rule.custom("--bottom", "calc(\(percentage)% + \(value.description))" + important)
                         }
                     } else {
                         if percentage == 0 {
-                            return rule.custom("bottom", "calc(\(value.description) * \(multiplier))" + important)
+                            rule.custom("--bottom", "calc(\(value.description) * \(multiplier))" + important)
                         } else {
-                            return rule.custom("bottom", "calc((\(percentage)% + \(value.description)) * \(multiplier))" + important)
+                            rule.custom("--bottom", "calc((\(percentage)% + \(value.description)) * \(multiplier))" + important)
                         }
                     }
                 } else if value.value.doubleValue < 0 {
                     if multiplier == 1 {
                         if percentage == 0 {
-                            return rule.custom("bottom", value.description + important)
+                            rule.custom("--bottom", value.description + important)
                         } else {
-                            return rule.custom("bottom", "calc(\(percentage)% - \(UnitValue(-value.value.doubleValue, value.unit).description))" + important)
+                            rule.custom("--bottom", "calc(\(percentage)% - \(UnitValue(-value.value.doubleValue, value.unit).description))" + important)
                         }
                     } else {
                         if percentage == 0 {
-                            return rule.custom("bottom", "calc(\(value.description) * \(multiplier))" + important)
+                            rule.custom("--bottom", "calc(\(value.description) * \(multiplier))" + important)
                         } else {
-                            return rule.custom("bottom", "calc((\(percentage)% - \(UnitValue(-value.value.doubleValue, value.unit).description)) * \(multiplier))" + important)
+                            rule.custom("--bottom", "calc((\(percentage)% - \(UnitValue(-value.value.doubleValue, value.unit).description)) * \(multiplier))" + important)
                         }
                     }
                 } else {
-                    return rule.custom("bottom", "0px" + important)
+                    rule.custom("--bottom", "0px" + important)
                 }
+                return rule.custom("bottom", "var(--bottom, 0)" + important)
             }
         }
         perform(state.wrappedValue, side.wrappedValue, multiplier.wrappedValue)
@@ -745,21 +749,22 @@ extension BaseElement {
                 case .right: percentage = 100
                 }
                 if value.value.doubleValue > 0 {
-                    return rule.custom("left", "calc((\(percentage)% + \(value.description)) * \(multiplier))" + important)
+                    rule.custom("--left", "calc((\(percentage)% + \(value.description)) * \(multiplier))" + important)
                 } else if value.value.doubleValue < 0 {
-                    return rule.custom("left", "calc((\(percentage)% - \(UnitValue(-value.value.doubleValue, value.unit).description)) * \(multiplier))" + important)
+                    rule.custom("--left", "calc((\(percentage)% - \(UnitValue(-value.value.doubleValue, value.unit).description)) * \(multiplier))" + important)
                 } else {
                     if multiplier == 1 {
-                        return rule.custom("left", "\(percentage)%" + important)
+                        rule.custom("--left", "\(percentage)%" + important)
                     } else {
-                        return rule.custom("left", "calc(\(percentage)% * \(multiplier))" + important)
+                        rule.custom("--left", "calc(\(percentage)% * \(multiplier))" + important)
                     }
                 }
+                return rule.custom("left", "var(--left, 0)" + important).custom("--right", "none" + important).custom("right", "var(--right, 0)" + important)
             }
         }
         let performTranslate: () -> Void = { [weak self] in
             self?._setRule(translationClassName, breakpoints: breakpoints) { rule in
-                rule.custom("--translate-x", "-50%").custom("translate", "var(--translate-x, 0) var(--translate-y, 0)" + important)
+                rule.custom("--translate-x", "-50%" + important).custom("translate", "var(--translate-x, 0) var(--translate-y, 0)" + important)
             }
         }
         perform(state.wrappedValue, side.wrappedValue, multiplier.wrappedValue)
@@ -835,21 +840,22 @@ extension BaseElement {
                 case .bottom: percentage = 100
                 }
                 if value.value.doubleValue > 0 {
-                    return rule.custom("top", "calc((\(percentage)% + \(value.description)) * \(multiplier))" + important)
+                    rule.custom("--top", "calc((\(percentage)% + \(value.description)) * \(multiplier))" + important)
                 } else if value.value.doubleValue < 0 {
-                    return rule.custom("top", "calc((\(percentage)% - \(UnitValue(-value.value.doubleValue, value.unit).description)) * \(multiplier))" + important)
+                    rule.custom("--top", "calc((\(percentage)% - \(UnitValue(-value.value.doubleValue, value.unit).description)) * \(multiplier))" + important)
                 } else {
                     if multiplier == 1 {
-                        return rule.custom("top", "\(percentage)%" + important)
+                        rule.custom("--top", "\(percentage)%" + important)
                     } else {
-                        return rule.custom("top", "calc(\(percentage)% * \(multiplier))" + important)
+                        rule.custom("--top", "calc(\(percentage)% * \(multiplier))" + important)
                     }
                 }
+                return rule.custom("top", "var(--top, 0)" + important).custom("--bottom", "none" + important).custom("bottom", "var(--bottom, 0)" + important)
             }
         }
         let performTranslate: () -> Void = { [weak self] in
             self?._setRule(translationClassName, breakpoints: breakpoints) { rule in
-                rule.custom("--translate-y", "-50%").custom("translate", "var(--translate-x, 0) var(--translate-y, 0)" + important)
+                rule.custom("--translate-y", "-50%" + important).custom("translate", "var(--translate-x, 0) var(--translate-y, 0)" + important)
             }
         }
         perform(state.wrappedValue, side.wrappedValue, multiplier.wrappedValue)
@@ -958,11 +964,12 @@ extension BaseElement {
         multiplier: State<Double> = .init(wrappedValue: 1),
         breakpoints: [MediaRule.MediaType]
     ) -> Self {
+        let important = breakpoints.count > 0 ? "!important" : ""
         let className = _getClassName("width", breakpoints: breakpoints)
         self.class(.init(stringLiteral: className))
         let perform: (U, Double) -> Void = { [weak self] value, multiplier in
             self?._setRule(className, breakpoints: breakpoints) { rule in
-                return rule.custom("width", UnitValue(value.value.doubleValue, value.unit, important: breakpoints.count > 0).description)
+                return rule.custom("--width", value.description + important).custom("width", "var(--width, 0)" + important)
             }
         }
         perform(state.wrappedValue, multiplier.wrappedValue)
@@ -1020,12 +1027,13 @@ extension BaseElement {
         let perform: (U, Double) -> Void = { [weak self] extra, multiplier in
             self?._setRule(className, breakpoints: breakpoints) { rule in
                 if extra.value.doubleValue > 0 {
-                    return rule.custom("width", "calc(\(100 * multiplier)% + \(extra.description))" + important)
+                    rule.custom("--width", "calc(\(100 * multiplier)% + \(extra.description))" + important)
                 } else if extra.value.doubleValue < 0 {
-                    return rule.custom("width", "calc(\(100 * multiplier)% - \(extra.description))" + important)
+                    rule.custom("--width", "calc(\(100 * multiplier)% - \(extra.description))" + important)
                 } else {
-                    return rule.custom("width", "\(100 * multiplier)%" + important)
+                    rule.custom("--width", "\(100 * multiplier)%" + important)
                 }
+                return rule.custom("width", "var(--width, 0)" + important)
             }
         }
         perform(state.wrappedValue, multiplier.wrappedValue)
@@ -1077,11 +1085,12 @@ extension BaseElement {
         multiplier: State<Double> = .init(wrappedValue: 1),
         breakpoints: [MediaRule.MediaType]
     ) -> Self {
+        let important = breakpoints.count > 0 ? "!important" : ""
         let className = _getClassName("height", breakpoints: breakpoints)
         self.class(.init(stringLiteral: className))
         let perform: (U, Double) -> Void = { [weak self] value, multiplier in
             self?._setRule(className, breakpoints: breakpoints) { rule in
-                return rule.custom("height", UnitValue(value.value.doubleValue, value.unit, important: breakpoints.count > 0).description)
+                return rule.custom("--height", value.description + important).custom("height", "var(--height, 0)" + important)
             }
         }
         perform(state.wrappedValue, multiplier.wrappedValue)
@@ -1139,12 +1148,13 @@ extension BaseElement {
         let perform: (U, Double) -> Void = { [weak self] extra, multiplier in
             self?._setRule(className, breakpoints: breakpoints) { rule in
                 if extra.value.doubleValue > 0 {
-                    return rule.custom("height", "calc(\(100 * multiplier)% + \(extra.description))" + important)
+                    rule.custom("--height", "calc(\(100 * multiplier)% + \(extra.description))" + important)
                 } else if extra.value.doubleValue < 0 {
-                    return rule.custom("height", "calc(\(100 * multiplier)% - \(extra.description))" + important)
+                    rule.custom("--height", "calc(\(100 * multiplier)% - \(extra.description))" + important)
                 } else {
-                    return rule.custom("height", "\(100 * multiplier)%" + important)
+                    rule.custom("--height", "\(100 * multiplier)%" + important)
                 }
+                return rule.custom("height", "var(--height, 0)" + important)
             }
         }
         perform(state.wrappedValue, multiplier.wrappedValue)
