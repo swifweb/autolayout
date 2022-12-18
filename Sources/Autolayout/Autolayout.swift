@@ -98,21 +98,33 @@ public class Autolayout {
 extension MediaRule.MediaType {
     /// Extra small `<576px`
     public static var extraSmall: MediaRule.MediaType { .init(.all.maxWidth(575.px), label: "xs") }
+    /// Extra small `<576px`
+    public static var xs: MediaRule.MediaType { .extraSmall }
     
     /// Small `≥576px` and `<768px`
     public static var small: MediaRule.MediaType { .init(.all.minWidth(576.px).maxWidth(767.px), label: "s") }
+    /// Small `≥576px` and `<768px`
+    public static var s: MediaRule.MediaType { .small }
     
     /// Medium `≥768px` and `<992px`
     public static var medium: MediaRule.MediaType { .init(.all.minWidth(768.px).maxWidth(991.px), label: "m") }
+    /// Medium `≥768px` and `<992px`
+    public static var m: MediaRule.MediaType { .medium }
     
     /// Large `≥992px` and `<1200px`
     public static var large: MediaRule.MediaType { .init(.all.minWidth(992.px).maxWidth(1199.px), label: "l") }
+    /// Large `≥992px` and `<1200px`
+    public static var l: MediaRule.MediaType { .large }
     
     /// Large `≥1200px` and `<1400px`
     public static var extraLarge: MediaRule.MediaType { .init(.all.minWidth(1200.px).maxWidth(1399.px), label: "xl") }
+    /// Large `≥1200px` and `<1400px`
+    public static var xl: MediaRule.MediaType { .extraLarge }
     
     /// Large `≥1400px`
     public static var extraExtraLarge: MediaRule.MediaType { .init(.all.minWidth(1400.px), label: "xxl") }
+    /// Large `≥1400px`
+    public static var xxl: MediaRule.MediaType { .extraExtraLarge }
 }
 
 extension BaseElement {
