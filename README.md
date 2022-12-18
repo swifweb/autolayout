@@ -95,6 +95,27 @@ Breakpoints can be added in the end of any autolayout-method. It uses full power
 .top(100.px, breakpoints: .extraSmall, .small, .medium)
 ```
 
+Or you can use breakpoints within the classic stylesheet
+
+```swift
+@DOM override var body: DOM.Content {
+    Stylesheet {
+        Rule(Body.pointer)
+            .margin(all: 0.px)
+            .padding(all: 0.px)
+        MediaRule(.xs, .s) { // will be applied only for extra-small and small screens
+            Rule(Body.pointer)
+                .backgroundColor(0x9bc4e2)
+        }
+        MediaRule(.m, .l, .xl) { // will be applied only for medium, large, and extra-large screens
+            Rule(Body.pointer)
+                .backgroundColor(0xffd700)
+        }
+    }
+    // ...other elements...
+}
+```
+
 ## Methods
 
 > You can declare multiple same methods but with different breakpoints.
