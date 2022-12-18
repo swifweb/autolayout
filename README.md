@@ -38,55 +38,35 @@ targets: [
 
 # Usage
 
+Instead of building complex `@media` rules in stylesheets you now can do same inline declaratively.
+Under the hood autolayout takes care about solving complex overriding priority issues.
+
 ```swift
 import Autolayout
 
 // amazingly laconic and powerful
 Div()
-    .position(.absolute)
-    .backgroundColor(.brown)
-    .widthToParent()
-    .width(100.px, breakpoints: .xs, .s)
+    .position(.relative)
+    .position(.absolute) // it will override relative with absolute for extra-small and small screens
     .height(100.px)
     .top()
-    .edges(h: 0.px)
-    .centerX(breakpoints: .xs, .s)
-    .opacity(0.8, breakpoints: .xs, .s)
+    .backgroundColor(.brown)
+    .widthToParent() // which is width: 100%
+    .width(100.px, breakpoints: .xs, .s) // it will override 100% to 100px for extra-small and small screens
+    .edges(h: 0.px) // which is left: 0px, right: 0px
+    .centerX(breakpoints: .xs, .s) // it will disable right, and will set left: 50%, translate-x: -50% for extra-small and small screens
+    .opacity(0.8, breakpoints: .xs, .s) // it will set opacity: 0.8 for extra-small and small screens
 ```
 
 Start using it at any view by simply declaring methods listed below. But first read about breakpoints.
 
 ## Breakpoints
 
-Breakpoints can be added in the end of any autolayout-method. It is direct full power of CSS3 `@media` rule.
+Normally we have to declare `@media` rules in a stylesheet, and it takes a lot of time.
 
-Classic way to set `@media` rules is like this
+With autolayout you could declare breakpoints (aka `@media` rules) once and use it as an alias.
 
-```swift
-.all.minWidth(576.px).maxWidth(767.px)
-```
-or like this if you need to declare several
-```swift
-.all.maxWidth(575.px), .all.minWidth(576.px).maxWidth(767.px), .all.minWidth(768.px).maxWidth(991.px)
-```
-
-But you can predefine needed breakpoints easily like this
-
-```swift
-extension MediaRule.MediaType {
-    static var extraSmall: MediaRule.MediaType { .init(.all.maxWidth(575.px), label: "xs") }
-    static var small: MediaRule.MediaType { .init(.all.minWidth(576.px).maxWidth(767.px), label: "s") }
-    static var medium: MediaRule.MediaType { .init(.all.minWidth(768.px).maxWidth(991.px), label: "m") }
-}
-```
-
-So you will be able to use them simply like this
-
-```swift
-.top(100.px, breakpoints: .extraSmall, .small, .medium)
-```
-
-To save your time there are already predefined breakpoints
+There are predefined breakpoints for you:
 
 ```swift
 .xs or .extraSmall        // <576px
@@ -95,6 +75,24 @@ To save your time there are already predefined breakpoints
 .l or .large              // ≥992px and <1200px
 .xl or .extraLarge        // ≥1200px and <1400px
 .xxl or .extraExtraLarge  // ≥1400px
+```
+
+or you can declare your own (just notice how long they are):
+ 
+```swift
+extension MediaRule.MediaType {
+    static var extraSmall: MediaRule.MediaType { .init(.all.maxWidth(575.px), label: "xs") }
+    static var small: MediaRule.MediaType { .init(.all.minWidth(576.px).maxWidth(767.px), label: "s") }
+    static var medium: MediaRule.MediaType { .init(.all.minWidth(768.px).maxWidth(991.px), label: "m") }
+}
+```
+
+> use `label: "xs"` to prettify your breakpoint in the source code, cause otherwise it will use just the whole rule text
+
+Breakpoints can be added in the end of any autolayout-method. It uses full power of CSS3 `@media` rule under the hood.
+
+```swift
+.top(100.px, breakpoints: .extraSmall, .small, .medium)
 ```
 
 ## Methods
