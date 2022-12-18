@@ -1,4 +1,4 @@
-[![SwifWeb](https://user-images.githubusercontent.com/1272610/208303589-6bba3eec-4dd2-4ec5-b6a8-276157a63d69.png)](http://swifweb.com)
+[![SwifWeb](https://user-images.githubusercontent.com/1272610/208304595-5f487e1b-e416-4b23-b14f-3503a22da6d3.png)](http://swifweb.com)
 
 <p align="center">
     <a href="LICENSE">
