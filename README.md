@@ -1,4 +1,4 @@
-[![SwifWeb](https://user-images.githubusercontent.com/1272610/208269515-82c38e3b-530c-4611-9638-6eaac2cf87e3.png)](http://swifweb.com)
+[![SwifWeb](https://user-images.githubusercontent.com/1272610/208303589-6bba3eec-4dd2-4ec5-b6a8-276157a63d69.png)](http://swifweb.com)
 
 <p align="center">
     <a href="LICENSE">
@@ -54,7 +54,7 @@ Div()
     .opacity(0.8, breakpoints: .xs, .s)
 ```
 
-Start using it at any view by simply declaring methods listed below.
+Start using it at any view by simply declaring methods listed below. But first read about breakpoints.
 
 ## Breakpoints
 
