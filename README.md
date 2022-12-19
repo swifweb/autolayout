@@ -16,6 +16,10 @@ This library gives you the powerful autolayout which works on pure CSS3  ❤️
 
 It will help you to easily build your awesome reactive web app in beloved Swift ❤️
 
+# Join our chat
+
+[![discord](https://user-images.githubusercontent.com/1272610/208384409-5396d0c7-c1f8-48c2-8b70-db7656ae1d5a.png)](https://discord.gg/q5wCPYv)
+
 # Installation
 
 Add package to your SwifWeb app's `Package.swift`
