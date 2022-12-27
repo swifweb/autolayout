@@ -27,7 +27,7 @@ Add package to your SwifWeb app's `Package.swift`
 In dependencies section
 ```swift
  dependencies: [
-    .package(url: "https://github.com/swifweb/autolayout", from: "1.0.3")
+    .package(url: "https://github.com/swifweb/autolayout", from: "1.0.4")
 ]
 ```
 In target section
