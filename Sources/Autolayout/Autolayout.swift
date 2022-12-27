@@ -140,8 +140,11 @@ extension BaseElement {
         breakpoints: [MediaRule.MediaType],
         _ rulesHandler: @escaping (CSSRule) -> CSSRule
     ) {
-        if let indexToDelete = _autolayout.ruleIndexCache[className] {
-            _autolayout.stylesheet.deleteRule(indexToDelete)
+        if let _ = _autolayout.ruleIndexCache[className] {
+            _autolayout.ruleIndexCache.removeValue(forKey: className)
+            if let ruleIndex = _autolayout.stylesheet.findRuleIndex(by: "." + className) {
+                _autolayout.stylesheet.deleteRule(ruleIndex)
+            }
         }
         let index: Int
         if breakpoints.count == 0 {
@@ -374,7 +377,7 @@ extension BaseElement {
                 } else {
                     rule.custom("--top", "0px" + important)
                 }
-                return rule.custom("top", "var(--top, 0)" + important)
+                return rule.custom("top", "var(--top, auto)" + important)
             }
         }
         perform(state.wrappedValue, side.wrappedValue, multiplier.wrappedValue)
@@ -475,7 +478,7 @@ extension BaseElement {
                 } else {
                     rule.custom("--left", "0px" + important)
                 }
-                return rule.custom("left", "var(--left, 0)" + important)
+                return rule.custom("left", "var(--left, auto)" + important)
             }
         }
         perform(state.wrappedValue, side.wrappedValue, multiplier.wrappedValue)
@@ -576,7 +579,7 @@ extension BaseElement {
                 } else {
                     rule.custom("--right", "0px" + important)
                 }
-                return rule.custom("right", "var(--right, 0)" + important)
+                return rule.custom("right", "var(--right, auto)" + important)
             }
         }
         perform(state.wrappedValue, side.wrappedValue, multiplier.wrappedValue)
@@ -677,7 +680,7 @@ extension BaseElement {
                 } else {
                     rule.custom("--bottom", "0px" + important)
                 }
-                return rule.custom("bottom", "var(--bottom, 0)" + important)
+                return rule.custom("bottom", "var(--bottom, auto)" + important)
             }
         }
         perform(state.wrappedValue, side.wrappedValue, multiplier.wrappedValue)
@@ -738,7 +741,7 @@ extension BaseElement {
     ) -> Self {
         let important = breakpoints.count > 0 ? "!important" : ""
         let className = _getClassName("left", breakpoints: breakpoints)
-        let translationClassName = _getClassName("translate", breakpoints: breakpoints)
+        let translationClassName = _getClassName("translate_x", breakpoints: breakpoints)
         self.class(.init(stringLiteral: className), .init(stringLiteral: translationClassName))
         let perform: (U, Autolayout.ConstraintCXSide, Double) -> Void = { [weak self] value, side, multiplier in
             self?._setRule(className, breakpoints: breakpoints) { rule in
@@ -759,7 +762,7 @@ extension BaseElement {
                         rule.custom("--left", "calc(\(percentage)% * \(multiplier))" + important)
                     }
                 }
-                return rule.custom("left", "var(--left, 0)" + important).custom("--right", "none" + important).custom("right", "var(--right, 0)" + important)
+                return rule.custom("left", "var(--left, auto)" + important).custom("--right", "auto" + important).custom("right", "var(--right, auto)" + important)
             }
         }
         let performTranslate: () -> Void = { [weak self] in
@@ -829,7 +832,7 @@ extension BaseElement {
     ) -> Self {
         let important = breakpoints.count > 0 ? "!important" : ""
         let className = _getClassName("top", breakpoints: breakpoints)
-        let translationClassName = _getClassName("translate", breakpoints: breakpoints)
+        let translationClassName = _getClassName("translate_y", breakpoints: breakpoints)
         self.class(.init(stringLiteral: className), .init(stringLiteral: translationClassName))
         let perform: (U, Autolayout.ConstraintCYSide, Double) -> Void = { [weak self] value, side, multiplier in
             self?._setRule(className, breakpoints: breakpoints) { rule in
@@ -850,7 +853,7 @@ extension BaseElement {
                         rule.custom("--top", "calc(\(percentage)% * \(multiplier))" + important)
                     }
                 }
-                return rule.custom("top", "var(--top, 0)" + important).custom("--bottom", "none" + important).custom("bottom", "var(--bottom, 0)" + important)
+                return rule.custom("top", "var(--top, auto)" + important).custom("--bottom", "auto" + important).custom("bottom", "var(--bottom, auto)" + important)
             }
         }
         let performTranslate: () -> Void = { [weak self] in
@@ -969,7 +972,7 @@ extension BaseElement {
         self.class(.init(stringLiteral: className))
         let perform: (U, Double) -> Void = { [weak self] value, multiplier in
             self?._setRule(className, breakpoints: breakpoints) { rule in
-                return rule.custom("--width", value.description + important).custom("width", "var(--width, 0)" + important)
+                return rule.custom("--width", value.description + important).custom("width", "var(--width, auto)" + important)
             }
         }
         perform(state.wrappedValue, multiplier.wrappedValue)
@@ -1033,7 +1036,7 @@ extension BaseElement {
                 } else {
                     rule.custom("--width", "\(100 * multiplier)%" + important)
                 }
-                return rule.custom("width", "var(--width, 0)" + important)
+                return rule.custom("width", "var(--width, auto)" + important)
             }
         }
         perform(state.wrappedValue, multiplier.wrappedValue)
@@ -1090,7 +1093,7 @@ extension BaseElement {
         self.class(.init(stringLiteral: className))
         let perform: (U, Double) -> Void = { [weak self] value, multiplier in
             self?._setRule(className, breakpoints: breakpoints) { rule in
-                return rule.custom("--height", value.description + important).custom("height", "var(--height, 0)" + important)
+                return rule.custom("--height", value.description + important).custom("height", "var(--height, auto)" + important)
             }
         }
         perform(state.wrappedValue, multiplier.wrappedValue)
@@ -1154,7 +1157,7 @@ extension BaseElement {
                 } else {
                     rule.custom("--height", "\(100 * multiplier)%" + important)
                 }
-                return rule.custom("height", "var(--height, 0)" + important)
+                return rule.custom("height", "var(--height, auto)" + important)
             }
         }
         perform(state.wrappedValue, multiplier.wrappedValue)
