@@ -10,7 +10,7 @@ let package = Package(
         .library(name: "Autolayout", type: .static, targets: ["Autolayout"])
     ],
     dependencies: [
-        .package(url: "https://github.com/swifweb/web", from: "1.0.0-beta.1.22.2")
+        .package(url: "https://github.com/swifweb/web", from: "1.0.0-beta.1.25.0")
     ],
     targets: [
         .target(name: "Autolayout", dependencies: [
