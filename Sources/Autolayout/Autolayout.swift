@@ -1428,6 +1428,48 @@ extension BaseElement {
         heightToParent(extra: value, multiplier: multiplier, breakpoints: breakpoints)
     }
     
+    // MARK: - Size
+    
+    /// Sets both width and height of an element
+    @discardableResult
+    public func size<U: UnitValuable>(
+        _ state: State<U>,
+        multiplier: State<Double> = .init(wrappedValue: 1),
+        breakpoints: [MediaRule.MediaType]
+    ) -> Self {
+        width(state, multiplier: multiplier, breakpoints: breakpoints).height(state, multiplier: multiplier, breakpoints: breakpoints)
+    }
+    
+    /// Sets the height of an element
+    @discardableResult
+    public func size<U: UnitValuable>(
+        _ state: State<U>,
+        multiplier: State<Double> = .init(wrappedValue: 1),
+        breakpoints: MediaRule.MediaType...
+    ) -> Self {
+        size(state, multiplier: multiplier, breakpoints: breakpoints)
+    }
+    
+    /// Sets the height of an element
+    @discardableResult
+    public func size<U: UnitValuable>(
+        _ value: U = 0.px,
+        multiplier: Double = 1,
+        breakpoints: [MediaRule.MediaType]
+    ) -> Self {
+        size(.init(wrappedValue: value), multiplier: .init(wrappedValue: multiplier), breakpoints: breakpoints)
+    }
+    
+    /// Sets the height of an element
+    @discardableResult
+    public func size<U: UnitValuable>(
+        _ value: U = 0.px,
+        multiplier: Double = 1,
+        breakpoints: MediaRule.MediaType...
+    ) -> Self {
+        size(value, multiplier: multiplier, breakpoints: breakpoints)
+    }
+    
     // MARK: - Position
     
     /// Specifies the type of positioning method used for an element (static, relative, absolute or fixed)
