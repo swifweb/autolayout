@@ -958,6 +958,120 @@ extension BaseElement {
         center(value, multiplier: multiplier, breakpoints: breakpoints)
     }
     
+    // MARK: - MinWidth
+    
+    /// Sets the minimum width of an element
+    @discardableResult
+    public func minWidth<U: UnitValuable>(
+        _ state: State<U>,
+        multiplier: State<Double> = .init(wrappedValue: 1),
+        breakpoints: [MediaRule.MediaType]
+    ) -> Self {
+        let important = breakpoints.count > 0 ? "!important" : ""
+        let className = _getClassName("minwidth", breakpoints: breakpoints)
+        self.class(.init(stringLiteral: className))
+        let perform: (U, Double) -> Void = { [weak self] value, multiplier in
+            self?._setRule(className, breakpoints: breakpoints) { rule in
+                return rule.custom("--min-width", value.description + important).custom("min-width", "var(--min-width, 0)" + important)
+            }
+        }
+        perform(state.wrappedValue, multiplier.wrappedValue)
+        state.listen {
+            perform($0, multiplier.wrappedValue)
+        }
+        multiplier.listen {
+            perform(state.wrappedValue, $0)
+        }
+        return self
+    }
+    
+    /// Sets the minimum width of an element
+    @discardableResult
+    public func minWidth<U: UnitValuable>(
+        _ state: State<U>,
+        multiplier: State<Double> = .init(wrappedValue: 1),
+        breakpoints: MediaRule.MediaType...
+    ) -> Self {
+        minWidth(state, multiplier: multiplier, breakpoints: breakpoints)
+    }
+    
+    /// Sets the minimum width of an element
+    @discardableResult
+    public func minWidth<U: UnitValuable>(
+        _ value: U = 0.px,
+        multiplier: Double = 1,
+        breakpoints: [MediaRule.MediaType]
+    ) -> Self {
+        minWidth(.init(wrappedValue: value), multiplier: .init(wrappedValue: multiplier), breakpoints: breakpoints)
+    }
+    
+    /// Sets the minimum width of an element
+    @discardableResult
+    public func minWidth<U: UnitValuable>(
+        _ value: U = 0.px,
+        multiplier: Double = 1,
+        breakpoints: MediaRule.MediaType...
+    ) -> Self {
+        minWidth(value, multiplier: multiplier, breakpoints: breakpoints)
+    }
+    
+    // MARK: - MaxWidth
+    
+    /// Sets the maximum width of an element
+    @discardableResult
+    public func maxWidth<U: UnitValuable>(
+        _ state: State<U>,
+        multiplier: State<Double> = .init(wrappedValue: 1),
+        breakpoints: [MediaRule.MediaType]
+    ) -> Self {
+        let important = breakpoints.count > 0 ? "!important" : ""
+        let className = _getClassName("maxwidth", breakpoints: breakpoints)
+        self.class(.init(stringLiteral: className))
+        let perform: (U, Double) -> Void = { [weak self] value, multiplier in
+            self?._setRule(className, breakpoints: breakpoints) { rule in
+                return rule.custom("--max-width", value.description + important).custom("max-width", "var(--max-width, 0)" + important)
+            }
+        }
+        perform(state.wrappedValue, multiplier.wrappedValue)
+        state.listen {
+            perform($0, multiplier.wrappedValue)
+        }
+        multiplier.listen {
+            perform(state.wrappedValue, $0)
+        }
+        return self
+    }
+    
+    /// Sets the maximum width of an element
+    @discardableResult
+    public func maxWidth<U: UnitValuable>(
+        _ state: State<U>,
+        multiplier: State<Double> = .init(wrappedValue: 1),
+        breakpoints: MediaRule.MediaType...
+    ) -> Self {
+        maxWidth(state, multiplier: multiplier, breakpoints: breakpoints)
+    }
+    
+    /// Sets the maximum width of an element
+    @discardableResult
+    public func maxWidth<U: UnitValuable>(
+        _ value: U = 0.px,
+        multiplier: Double = 1,
+        breakpoints: [MediaRule.MediaType]
+    ) -> Self {
+        maxWidth(.init(wrappedValue: value), multiplier: .init(wrappedValue: multiplier), breakpoints: breakpoints)
+    }
+    
+    /// Sets the maximum width of an element
+    @discardableResult
+    public func maxWidth<U: UnitValuable>(
+        _ value: U = 0.px,
+        multiplier: Double = 1,
+        breakpoints: MediaRule.MediaType...
+    ) -> Self {
+        maxWidth(value, multiplier: multiplier, breakpoints: breakpoints)
+    }
+    
     // MARK: - Width
     
     /// Sets the width of an element
@@ -1077,6 +1191,120 @@ extension BaseElement {
         breakpoints: MediaRule.MediaType...
     ) -> Self {
         widthToParent(extra: value, multiplier: multiplier, breakpoints: breakpoints)
+    }
+    
+    // MARK: - MinHeight
+    
+    /// Sets the minimum height of an element
+    @discardableResult
+    public func minHeight<U: UnitValuable>(
+        _ state: State<U>,
+        multiplier: State<Double> = .init(wrappedValue: 1),
+        breakpoints: [MediaRule.MediaType]
+    ) -> Self {
+        let important = breakpoints.count > 0 ? "!important" : ""
+        let className = _getClassName("minheight", breakpoints: breakpoints)
+        self.class(.init(stringLiteral: className))
+        let perform: (U, Double) -> Void = { [weak self] value, multiplier in
+            self?._setRule(className, breakpoints: breakpoints) { rule in
+                return rule.custom("--min-height", value.description + important).custom("min-height", "var(--min-height, 0)" + important)
+            }
+        }
+        perform(state.wrappedValue, multiplier.wrappedValue)
+        state.listen {
+            perform($0, multiplier.wrappedValue)
+        }
+        multiplier.listen {
+            perform(state.wrappedValue, $0)
+        }
+        return self
+    }
+    
+    /// Sets the minimum height of an element
+    @discardableResult
+    public func minHeight<U: UnitValuable>(
+        _ state: State<U>,
+        multiplier: State<Double> = .init(wrappedValue: 1),
+        breakpoints: MediaRule.MediaType...
+    ) -> Self {
+        minHeight(state, multiplier: multiplier, breakpoints: breakpoints)
+    }
+    
+    /// Sets the minimum height of an element
+    @discardableResult
+    public func minHeight<U: UnitValuable>(
+        _ value: U = 0.px,
+        multiplier: Double = 1,
+        breakpoints: [MediaRule.MediaType]
+    ) -> Self {
+        minHeight(.init(wrappedValue: value), multiplier: .init(wrappedValue: multiplier), breakpoints: breakpoints)
+    }
+    
+    /// Sets the minimum height of an element
+    @discardableResult
+    public func minHeight<U: UnitValuable>(
+        _ value: U = 0.px,
+        multiplier: Double = 1,
+        breakpoints: MediaRule.MediaType...
+    ) -> Self {
+        minHeight(value, multiplier: multiplier, breakpoints: breakpoints)
+    }
+    
+    // MARK: - MaxHeight
+    
+    /// Sets the maximum height of an element
+    @discardableResult
+    public func maxHeight<U: UnitValuable>(
+        _ state: State<U>,
+        multiplier: State<Double> = .init(wrappedValue: 1),
+        breakpoints: [MediaRule.MediaType]
+    ) -> Self {
+        let important = breakpoints.count > 0 ? "!important" : ""
+        let className = _getClassName("maxheight", breakpoints: breakpoints)
+        self.class(.init(stringLiteral: className))
+        let perform: (U, Double) -> Void = { [weak self] value, multiplier in
+            self?._setRule(className, breakpoints: breakpoints) { rule in
+                return rule.custom("--max-height", value.description + important).custom("max-height", "var(--max-height, 0)" + important)
+            }
+        }
+        perform(state.wrappedValue, multiplier.wrappedValue)
+        state.listen {
+            perform($0, multiplier.wrappedValue)
+        }
+        multiplier.listen {
+            perform(state.wrappedValue, $0)
+        }
+        return self
+    }
+    
+    /// Sets the maximum height of an element
+    @discardableResult
+    public func maxHeight<U: UnitValuable>(
+        _ state: State<U>,
+        multiplier: State<Double> = .init(wrappedValue: 1),
+        breakpoints: MediaRule.MediaType...
+    ) -> Self {
+        maxHeight(state, multiplier: multiplier, breakpoints: breakpoints)
+    }
+    
+    /// Sets the maximum height of an element
+    @discardableResult
+    public func maxHeight<U: UnitValuable>(
+        _ value: U = 0.px,
+        multiplier: Double = 1,
+        breakpoints: [MediaRule.MediaType]
+    ) -> Self {
+        maxHeight(.init(wrappedValue: value), multiplier: .init(wrappedValue: multiplier), breakpoints: breakpoints)
+    }
+    
+    /// Sets the maximum height of an element
+    @discardableResult
+    public func maxHeight<U: UnitValuable>(
+        _ value: U = 0.px,
+        multiplier: Double = 1,
+        breakpoints: MediaRule.MediaType...
+    ) -> Self {
+        maxHeight(value, multiplier: multiplier, breakpoints: breakpoints)
     }
     
     // MARK: - Height
