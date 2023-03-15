@@ -51,7 +51,7 @@ import Autolayout
 // amazingly laconic and powerful
 Div()
     .position(.relative)
-    .position(.absolute) // it will override relative with absolute for extra-small and small screens
+    .position(.absolute, breakpoints: .xs, .s) // it will override relative with absolute for extra-small and small screens
     .height(100.px)
     .top()
     .backgroundColor(.brown)
